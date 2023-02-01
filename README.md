@@ -48,8 +48,6 @@ Vue.js framework
 /ViewRecords  
 /About
 
-Shown in [[Drawing 2023-02-01 13.17.04.excalidraw]]
-
 #### Classes/
 
 RecordList  
