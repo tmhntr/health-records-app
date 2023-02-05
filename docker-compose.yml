@@ -11,6 +11,8 @@ services:
       POSTGRES_HOST: postgres
     volumes:
       - ./server:/app
+    depends_on:
+      - postgres
     command:
       [
         "uvicorn",
@@ -45,6 +47,9 @@ services:
     volumes:
       # - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - client
+      - server
 
 volumes:
   postgres:
