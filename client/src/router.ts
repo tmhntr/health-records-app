@@ -10,6 +10,7 @@ export const router = createRouter({
   routes: [
     { path: "/", component: Home },
     { path: "/about", component: About },
+    { path: "/add", component: EditRecord },
     { path: "/edit/:id", component: EditRecord },
     { path: "/view", component: ViewRecordsVue },
     { path: "/:notFound(.*)", component: NotFoundVue },
