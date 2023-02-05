@@ -8,7 +8,6 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
 import Card from "../components/Card.vue";
 
 export default {
@@ -18,9 +17,9 @@ export default {
       cards: [
         { title: "Card 1", content: "Content 1", button_text: "Button 1" },
         { title: "Card 2", content: "Content 2", button_text: "Button 2" },
-        { title: "Card 3", content: "Content 3", button_text: "Button 3" }
-      ]
-    }
-  }
+        { title: "Card 3", content: "Content 3", button_text: "Button 3" },
+      ],
+    };
+  },
 };
 </script>
