@@ -1,41 +1,29 @@
+<script setup lang="ts">
+import { defineProps } from "vue";
+// import { useRouter } from "vue-router";
+
+defineProps<{
+  card: {
+    title: string;
+    content: string;
+    button_text: string;
+    route: string;
+  };
+}>();
+
+// const on_click = () => {
+//   router.push(props.route);
+// };
+</script>
 <template>
   <div class="card">
-    <h1 v-if="title">{{ title }}</h1>
-    <p>{{ content }}</p>
-    <button @click="() => on_click()">{{ button_text }}</button>
+    <h1 v-if="card.title">{{ card.title }}</h1>
+    <p>{{ card.content }}</p>
+    <router-link :to="card.route">
+      <button>{{ card.button_text }}</button>
+    </router-link>
   </div>
 </template>
-
-<script lang="ts">
-import { defineComponent } from "vue";
-
-export default defineComponent({
-  name: "CardComponent",
-  components: {},
-  props: {
-    title: {
-      type: String,
-      required: false,
-      default: null,
-    },
-    content: {
-      type: String,
-      required: false,
-      default: null,
-    },
-    button_text: {
-      type: String,
-      required: true,
-      default: null,
-    },
-    on_click: {
-      type: Function,
-      required: true,
-      default: null,
-    },
-  },
-});
-</script>
 
 <style scoped>
 .card {
