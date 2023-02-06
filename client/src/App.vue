@@ -21,4 +21,17 @@ export default defineComponent({
   color: #2c3e50;
   margin-top: 60px;
 }
+
+body {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;
+
+  background-color: #f5f5f5;
+}
 </style>

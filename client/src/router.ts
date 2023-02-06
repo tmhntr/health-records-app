@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Home from "./views/HomePageView.vue";
-import About from "./views/About.vue";
-import EditRecord from "./views/EditRecord.vue";
-import ViewRecordsVue from "./views/ViewRecords.vue";
-import NotFoundVue from "./views/NotFound.vue";
+import Home from "./views/HomePage.vue";
+import About from "./views/AboutPage.vue";
+import EditRecord from "./views/EditRecordPage.vue";
+import ViewRecordsVue from "./views/ViewRecordsPage.vue";
+import NotFoundVue from "./views/NotFoundPAge.vue";
 
 export const router = createRouter({
   history: createWebHistory(),

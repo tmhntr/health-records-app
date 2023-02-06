@@ -37,7 +37,7 @@ const cards = ref([
     <h1>Health Records App</h1>
     <h2>Developed by Tim Hunter</h2>
   </div>
-  <div class="cards__container">
+  <div class="cards-container">
     <Card
       v-for="card in cards"
       :key="card.title"
@@ -48,3 +48,39 @@ const cards = ref([
     />
   </div>
 </template>
+
+<style>
+.cards-container {
+  margin: 0 auto;
+
+  display: grid;
+  grid-template: repeat(3, 1fr) / 1fr;
+  grid-gap: 1rem;
+  padding: 1rem;
+
+  width: 100%;
+
+  justify-content: center;
+  align-items: center;
+}
+
+/* make it responsive */
+@media (min-width: 768px) {
+  .cards-container {
+    grid-template: 1fr / repeat(3, 1fr);
+  }
+}
+
+.card {
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  margin: 1rem;
+  width: 100%;
+  height: 100%;
+}
+</style>
