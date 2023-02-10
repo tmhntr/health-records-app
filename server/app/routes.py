@@ -5,13 +5,18 @@ from sqlalchemy.orm import Session
 
 from . import schemas, controller
 from .dependencies import get_db
+from .auth import oauth2_scheme
 
 
 router = APIRouter(
-    prefix="/api/v1",
     tags=["v1"],
     responses={404: {"description": "Not found"}},
 )
+
+# @router.get("/token")
+# async def read_token(token: str = Depends(oauth2_scheme)):
+#     return {"token": token}
+
 
 @router.post("/users/", response_model=schemas.User)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
@@ -28,7 +33,7 @@ def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
 
 
 @router.get("/users/{user_id}", response_model=schemas.User)
-def read_user(user_id: int, db: Session = Depends(get_db)):
+def read_user(user_id: int, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
     db_user = controller.get_user(db, user_id=user_id)
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
