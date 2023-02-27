@@ -1,15 +1,24 @@
 version: "3.9"
+
 services:
-  server:
+  health-backend:
     image: tmhntr/health-backend:latest
+    container_name: health-backend
     environment:
       - PORT=80
       - DATABASE_LOGIN_URL=postgresql://postgres:secret@db/postgres
-      - ENVIRONMENT=production
+      # - DEBUG=1
     depends_on:
       - db
-  client:
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  health-frontend:
     image: tmhntr/health-frontend:latest
+    container_name: health-frontend
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
   db:
     image: postgres:13
     volumes:
@@ -17,6 +26,7 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=secret
+
   nginx:
     image: nginx:latest
     ports:
@@ -26,10 +36,14 @@ services:
     depends_on:
       - client
       - server
+      
   watchtower:
     image: containrrr/watchtower
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - WATCHTOWER_LABEL_ENABLE=true
+      - WATCHTOWER_POLL_INTERVAL=3600
 
 volumes:
   postgres-data:
