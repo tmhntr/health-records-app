@@ -1,0 +1,28 @@
+@startuml 
+
+!theme cerulean-outline
+top to bottom direction
+
+actor User
+() client
+
+node "docker-compose" {
+  component [health-frontend] as F 
+  component [health-backend] as B
+  database db as D
+  component nginx as S
+}
+() Auth0 as A
+
+
+User -> client : UI interaction
+client <-> S : HTTP
+S <...> F : "HTTP /"
+S <.> B : "HTTP /api/"
+
+B .> A : "HTTPS"
+B -d-> D : database access
+
+
+
+@enduml
