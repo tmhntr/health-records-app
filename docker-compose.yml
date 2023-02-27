@@ -1,54 +1,35 @@
 version: "3.9"
 services:
   server:
-    build: ./server
-    # ports:
-    #   - "8081:8081"
+    image: tmhntr/health-backend:latest
     environment:
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_USER: postgres
-      POSTGRES_DB: postgres
-      POSTGRES_HOST: postgres
-    volumes:
-      - ./server:/app
+      - PORT=80
+      - DATABASE_LOGIN_URL=postgresql://postgres:secret@db/postgres
+      - ENVIRONMENT=production
     depends_on:
-      - postgres
-    command: [
-        "uvicorn",
-        "app.main:app",
-        "--host",
-        "0.0.0.0",
-        "--port",
-        "80",
-        # "--reload",
-      ]
-
+      - db
   client:
-    build: ./client
-    # ports:
-    #   - "3000:80"
-
-  postgres:
-    image: "postgres:latest"
-    # ports:
-    #   - "5432:5432"
-    environment:
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_USER: postgres
-      POSTGRES_DB: postgres
+    image: tmhntr/health-frontend:latest
+  db:
+    image: postgres:13
     volumes:
-      - postgres:/var/lib/postgresql/data
-
+      - postgres-data:/var/lib/postgresql/data:delegated
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=secret
   nginx:
     image: nginx:latest
     ports:
-      - "8081:80"
+      - 8081:80
     volumes:
-      # - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - client
       - server
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
 
 volumes:
-  postgres:
+  postgres-data:
