@@ -12,12 +12,18 @@ services:
       - db
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
+    env_file:
+      - .env
+    restart: always
 
   health-frontend:
     image: tmhntr/health-frontend:latest
     container_name: health-frontend
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
+    env_file:
+      - .env
+    restart: always
 
   db:
     image: postgres:13
